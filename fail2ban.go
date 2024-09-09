@@ -175,7 +175,7 @@ func (a *Fail2Ban) ServeHTTP(responseWriter http.ResponseWriter, request *http.R
 	a.logger.Debug("Handler is enabled. Analyzing request.", "phase", "accept_request")
 
 	// Check if the request is a WebSocket upgrade request
-	if strings.Contains(strings.ToLower(req.Header.Get("Connection")), "upgrade") && strings.ToLower(request.Header.Get("Upgrade")) == "websocket" {
+	if strings.Contains(strings.ToLower(request.Header.Get("Connection")), "upgrade") && strings.ToLower(request.Header.Get("Upgrade")) == "websocket" {
 		a.logger.Debug("WebSocket request detected. Skipping Fail2Ban checks.", "phase", "accept_request")
 		a.next.ServeHTTP(responseWriter, request)
 		return
